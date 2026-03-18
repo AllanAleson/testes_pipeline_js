@@ -10,6 +10,7 @@ on:
 
 jobs:
   deliver:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,8 +21,8 @@ jobs:
       - name: Prepare artifact
         run: |
           mkdir -p dist/pipeline-demo
-          cp app.py requirements.txt README.md dist/pipeline-demo/
-          cp test_app.py dist/pipeline-demo/
+          cp package.json package-lock.json README.md dist/pipeline-demo/
+          cp -r pipelineProject dist/pipeline-demo/
 
       - name: Upload delivery artifact
         uses: actions/upload-artifact@v4
