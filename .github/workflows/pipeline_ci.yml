@@ -25,9 +25,11 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
+        working-directory: pipelineProject
         run: npm ci
 
       - name: Run tests
+        working-directory: pipelineProject
         run: npm test
 
   deploy:
